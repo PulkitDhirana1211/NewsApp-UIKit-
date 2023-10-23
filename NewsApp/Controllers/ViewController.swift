@@ -31,7 +31,11 @@ class ViewController: UIViewController {
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
+        fetchTopStories()
         
+    }
+    
+    private func fetchTopStories() {
         APICaller.shared.getTopStories { [weak self] result in
             switch result {
             case .success(let articles):
