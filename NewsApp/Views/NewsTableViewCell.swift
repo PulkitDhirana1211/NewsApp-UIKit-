@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class NewsTableViewCell: UITableViewCell {
     
@@ -81,21 +82,26 @@ class NewsTableViewCell: UITableViewCell {
         newsTitleLabel.text = viewModel.title
         subtitleLabel.text = viewModel.subtitle
         
-        // Image
-        if let data = viewModel.imageData {
-            newsImageView.image = UIImage(data: data)
-        } else if let url = viewModel.imageURL {
-            // fetch
-            URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-                
-                guard let data = data, error == nil else {
-                    return
-                }
-                viewModel.imageData = data
-                DispatchQueue.main.async {
-                    self?.newsImageView.image = UIImage(data: data)
-                }
-            }.resume()
+        DispatchQueue.main.async { [weak self] in
+            self?.newsImageView.sd_setImage(with: viewModel.imageURL, completed: nil)
         }
+
+        
+//        // Image
+//        if let data = viewModel.imageData {
+//            newsImageView.image = UIImage(data: data)
+//        } else if let url = viewModel.imageURL {
+//            // fetch
+//            URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+//                
+//                guard let data = data, error == nil else {
+//                    return
+//                }
+//                viewModel.imageData = data
+//                DispatchQueue.main.async {
+//                    self?.newsImageView.image = UIImage(data: data)
+//                }
+//            }.resume()
+//        }
     }
 }

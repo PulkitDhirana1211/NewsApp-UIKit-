@@ -14,6 +14,12 @@ struct APIResponseModel: Codable {
 
 // MARK: - Article
 struct Article: Codable {
+//    let id: String?
+//    var hashValue: Int { get { return id.hashValue } }
+//    static func == (lhs: Article, rhs: Article) -> Bool {
+//        lhs.source.id == rhs.source.id
+//    }
+    
     let source: Source
 //    let author: String?
     let title: String
